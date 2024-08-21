@@ -77,7 +77,7 @@ void printContainer(const C& in, const string& s)
 */
 bool has_cycle(const vector<Edge> &edges) {
   // Implement your solution here to detect whether this undirected graph contains a cycle or not.
-  printEdges(edges); //debug
+  //printEdges(edges); //debug
 
   //step1: create adjacency list "adj" & a collection of remaining vertices to be discovered "remain_vertices"
   unordered_map<int,unordered_set<int>> adj; // this is safe if edges contain duplicate items!!!
@@ -86,7 +86,7 @@ bool has_cycle(const vector<Edge> &edges) {
   {
     if (e.source == e.destination)
     {
-      cout << "The vertex " << e.source << " causes cycle\n"; //debug
+      //cout << "The vertex " << e.source << " causes cycle\n"; //debug
       return true;
     }
     adj[e.source].insert(e.destination);
@@ -94,7 +94,7 @@ bool has_cycle(const vector<Edge> &edges) {
     remain_vertices.insert(e.source);
     remain_vertices.insert(e.destination);
   }
-  printAdjs(adj); //debug
+  //printAdjs(adj); //debug
 
   //step2: create a collection of next vertices to be discovered "next_vertices"
   unordered_set<int> next_vertices;
@@ -106,8 +106,8 @@ bool has_cycle(const vector<Edge> &edges) {
 
   //step3: while doing BFS, return true whenever we try to add a vertex into next_vertices while that vertex is already presented in next_vertices
   unordered_set<int> discovered_vertices; //debug
-  printContainer(next_vertices, "next_vertices init"); // debug
-  printContainer(remain_vertices, "remain_vertices init"); // debug
+  //printContainer(next_vertices, "next_vertices init"); // debug
+  //printContainer(remain_vertices, "remain_vertices init"); // debug
   while(true)
   {
     if (next_vertices.empty())
@@ -118,13 +118,13 @@ bool has_cycle(const vector<Edge> &edges) {
       }
       else // when "next_vertices" is empty, take a vertex from "remain_vertices" for continuing BFS
       {
-        printContainer(remain_vertices, "remain_vertices"); // debug
+        //printContainer(remain_vertices, "remain_vertices"); // debug
         next_vertices.insert(*(remain_vertices.cbegin()));
       }
     }
     auto current_vertices = *(next_vertices.cbegin());
     discovered_vertices.insert(current_vertices);
-    printContainer(discovered_vertices, "discovered_vertices"); // debug
+    //printContainer(discovered_vertices, "discovered_vertices"); // debug
     next_vertices.erase(current_vertices);
     remain_vertices.erase(current_vertices);
     for (auto const e : adj[current_vertices]) // O(E) average
@@ -133,12 +133,12 @@ bool has_cycle(const vector<Edge> &edges) {
       // but if e is already in "next_vertices", that means we have a cycle
       if ( (discovered_vertices.count(e) == 0) && ((next_vertices.insert(e)).second == false) )
       {
-        cout << "The vertex " << e << " causes cycle\n"; //debug
+        //cout << "The vertex " << e << " causes cycle\n"; //debug
         return true;
       }
     }
-    printContainer(next_vertices, "next_vertices"); // debug
-    printContainer(remain_vertices, "remain_vertices"); // debug
+    //printContainer(next_vertices, "next_vertices"); // debug
+    //printContainer(remain_vertices, "remain_vertices"); // debug
   }
 
   return false; // BFS is done and no cycle is found
