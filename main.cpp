@@ -74,6 +74,9 @@ void printContainer(const C& in, const string& s)
 *  
 *  Idea: using Breadth-First Search (BFS) to check for cycle.
 *  Time complexity: O(E) average, O(E^2) worst-case (for an input of E edges). Note: can use std::set instead of std::unordered_set for O(ElogE) worst-case.
+*  TODO: The solution is developed with std::unordered_set/std::set at the first thought. 
+*        However it can be optimized further by using a queue and a list of colored vertices as per BFS implementation in CLRS book.
+*        Next step: Change the solution to use a queue and a list of colored vertices.
 */
 bool has_cycle(const vector<Edge> &edges) {
   // Implement your solution here to detect whether this undirected graph contains a cycle or not.
