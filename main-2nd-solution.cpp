@@ -216,7 +216,7 @@ public:
     {
       m.insert({*it, distance(s.begin(),it)});
     }
-    for (auto e : m) { cout << "{" << e.first << "," << e.second << "}\n"; } //debug
+    //for (auto e : m) { cout << "{" << e.first << "," << e.second << "}\n"; } //debug
 
     // edge_idx is a vector of edges-like information, but as per index, not as per label/name/value
     vector<pair<int,int>> edge_idx;
@@ -231,7 +231,7 @@ public:
         edge_idx.push_back({it1->second,it2->second});
       }
     }
-    for (auto e : edge_idx) { cout << "[" << e.first << "," << e.second << "]\n"; } //debug
+    //for (auto e : edge_idx) { cout << "[" << e.first << "," << e.second << "]\n"; } //debug
 
     // create instances of BfsVertex for bfsGraph vector
     for (auto const& e : m) // O(V)
@@ -281,8 +281,8 @@ public:
     // change color of all vertices to white after doing BFS
     auto action = finally([&] { 
       resetColor(); 
-      cout << "BFS is done. Colors changed to white\n"; //debug
-      cout << *this; //debug
+      //cout << "BFS is done. Colors changed to white\n"; //debug
+      //cout << *this; //debug
       }
     );  // establish exit action
 
@@ -305,16 +305,16 @@ public:
     
     while (!remain_vertices.empty()) // there is a disjoint set to start BFS
     {
-      printContainer(remain_vertices, "remain_vertices (as per index)"); //debug
+      //printContainer(remain_vertices, "remain_vertices (as per index)"); //debug
       auto index = *(remain_vertices.cbegin());
-      cout << "Starting BFS from index(" << index << ")_label(" << bfsGraph[index].getLabel() << ") ..........\n"; //debug
+      //cout << "Starting BFS from index(" << index << ")_label(" << bfsGraph[index].getLabel() << ") ..........\n"; //debug
       q.push(index);
       remain_vertices.erase(index);
 
       while (!q.empty()) // main BFS algorithm in CLRS book for each disjoint set
       {
         auto curVertex = q.front();
-        cout << "Discovering vertex with index(" << curVertex << ")_label(" << bfsGraph[curVertex].getLabel() << ") ..........\n"; //debug
+        //cout << "Discovering vertex with index(" << curVertex << ")_label(" << bfsGraph[curVertex].getLabel() << ") ..........\n"; //debug
         q.pop();
         for (auto const i : bfsGraph[curVertex].getAdjs())
         {
@@ -330,7 +330,7 @@ public:
                                   // we see an edge from "curVertex" to another gray vertex "i",
                                   // that means the graph has a cycle
             {
-              cout << "The vertex " << bfsGraph[i].getLabel() << " causes cycle\n"; //debug
+              //cout << "The vertex " << bfsGraph[i].getLabel() << " causes cycle\n"; //debug
               return true;
             }
             case Bfs_color::black:
@@ -344,9 +344,9 @@ public:
         colorVertex(curVertex, Bfs_color::black);
         discovered_vertices.push_back(curVertex);
         remain_vertices.erase(curVertex);
-        printContainer(discovered_vertices, "discovered_vertices (as per index)"); //debug
-        printContainer(remain_vertices, "remain_vertices (as per index)"); //debug
-        cout << *this; //debug
+        //printContainer(discovered_vertices, "discovered_vertices (as per index)"); //debug
+        //printContainer(remain_vertices, "remain_vertices (as per index)"); //debug
+        //cout << *this; //debug
       }
     }
 
@@ -425,7 +425,7 @@ bool has_cycle(const vector<Edge> &edges) {
   // Implement your solution here to detect whether this undirected graph contains a cycle or not.
 
   //step1: hande special cases
-  printEdges(edges);
+  //printEdges(edges); //debug
   if (edges.empty())
   {
     return false;
@@ -434,14 +434,14 @@ bool has_cycle(const vector<Edge> &edges) {
   {
     if (e.source == e.destination)
     {
-      cout << "The vertex " << e.source << " causes cycle\n"; //debug
+      //cout << "The vertex " << e.source << " causes cycle\n"; //debug
       return true;
     }
   }
 
   //step2: create a BfsGraph and invoke has_cycle() member function
   MyGraph::BfsGraph mygraph{edges}; // O(V.E) = O(E^(3/2)), with V = O(E^(1/2))
-  cout << mygraph; //debug
+  //cout << mygraph; //debug
   return mygraph.has_cycle();       // O(VlogV+E) with V = O(E^(1/2))
 }
 
