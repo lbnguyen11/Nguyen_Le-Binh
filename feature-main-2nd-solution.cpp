@@ -226,11 +226,10 @@ private:
     int index; // index of vertex, continually increasing: 0,1,2,3,...
     Bfs_label label; // real name/value of vertex
     Bfs_color color; // color of vertex
-    vector<BfsVertex>* graph; // pointer to a vector presenting the whole graph
+    BfsGraph* graph; // pointer to a BfsGraph presenting the whole graph
     vector<int> adjs; // adjacency list of this vertex (as per index, not as per label/name/value)
   public:
     // construct a BfsVertex from an index and an label
-    // invariant: all vertices are white and have correct pointer to a vector presenting the whole graph
     BfsVertex(int idx, Bfs_label val) : index{idx}, label{val}, color{Bfs_color::white}, graph{nullptr} {}
     // Rule of five: For current desgin, copy ctor and copy operator and move operator are not used, so mark them as deleted.
     // TODO: Revise the design and provide implementation for them if necessary.
@@ -252,7 +251,7 @@ private:
     {
       return color;
     }
-    vector<BfsVertex>* getGraph() const
+    BfsGraph* getGraph() const
     {
       return graph;
     }
@@ -262,7 +261,7 @@ private:
     }
 
     // initialize graph ptr to point to the whole graph data structure
-    void initGraphPtr(vector<BfsVertex>* g)
+    void initGraphPtr(BfsGraph* g)
     {
       graph = g;
     }
@@ -299,6 +298,7 @@ public:
   // construct a BfsGraph from a vector of Edges, should be a explicit ctor to prevent implicit conversion
   // input: E edges
   // time complexity: O(V.E) = O(E^(3/2)), with V^2 <= E
+  // invariant: all BfsVertex are white and have correct pointer to a BfsGraph presenting the whole graph
   explicit BfsGraph(const vector<Edge>& in)
   {
     // s is a set of unique label/vertex
@@ -343,7 +343,7 @@ public:
     // initialize instances of BfsVertex for bfsGraph vector
     for (auto& vertex : bfsGraph) // O(V.E) !!!
     {
-      vertex.initGraphPtr(&bfsGraph);
+      vertex.initGraphPtr(this);
       vertex.initAdjs(edge_idx);
     }
   }
@@ -486,8 +486,9 @@ std::ostream& operator<< (std::ostream& os, const BfsGraph::BfsVertex& bfsVertex
   for (auto const i : bfsVertex.getAdjs())
   {
     auto ptr = bfsVertex.getGraph();
-    os << &( (*ptr)[i] ) << "(" << (*ptr)[i].getLabel();
-    printColor((*ptr)[i].getColor());
+    auto& vertex = ptr->bfsGraph[i];
+    os << &vertex << "(" << vertex.getLabel();
+    printColor(vertex.getColor());
     os << ") ";
   }
   //os << "\n";
