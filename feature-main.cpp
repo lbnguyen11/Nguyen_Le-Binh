@@ -1,8 +1,5 @@
 //
 //  feature-main.cpp
-//  CppGraphTest
-//
-//  Created by lgb1hc on 21/08/2024.
 //  Tested on Ubuntu 22.04.3 LTS
 //  
 //  DESCRIPTION: This program determines whether or not an undirected graph contains a cycle by doing:
@@ -15,11 +12,10 @@
 //  TODO:
 //    1. createEdges is based on a C program https://stackoverflow.com/questions/12790337/generating-a-random-dag?rq=3.
 //       Will change it to C++ style to handle error/exception correctly.
-//    2. Consider to write unit tests to efficiently and conveniently check the correctness of solution for each further change.
+//    2. Consider writing unit tests to efficiently and conveniently check the correctness of solution for each future change.
 //    3. Make the program portable for other OSes.
 //    4. Change desgin of has_cycle to use a queue and a list of colored vertices (BFS in CLRS book) for optimization.
 //    5. Research ways to draw undirected graph for testing. 
-
 
 #include <iostream>
 #include <fstream>
