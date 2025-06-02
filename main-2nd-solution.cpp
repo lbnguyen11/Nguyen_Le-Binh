@@ -1,8 +1,3 @@
-//
-//  main-2nd-solution.cpp
-//  CppGraphTest
-//
-
 #include <iostream>
 #include <vector>
 #include <unordered_set>
@@ -12,7 +7,6 @@
 #include <queue>
 
 using namespace std;
-
 
 struct Edge {
   const int source;
