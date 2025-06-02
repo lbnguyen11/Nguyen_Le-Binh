@@ -1,11 +1,3 @@
-//
-//  main.cpp
-//  CppGraphTest
-//
-//  Created by Dave Duprey on 25/11/2019.
-//  Copyright © 2019 Dave Duprey. All rights reserved.
-//
-
 #include <iostream>
 #include <vector>
 #include <unordered_set>
@@ -14,7 +6,6 @@
 #include <map>
 
 using namespace std;
-
 
 struct Edge {
   const int source;
